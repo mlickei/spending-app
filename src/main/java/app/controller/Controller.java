@@ -10,7 +10,7 @@ import app.resource.ResourceManager;
 public class Controller
 {
 
-    private ApplicationService applicationService;
+    private ApplicationService _applicationService;
     private ResourceManager resourceManager = new ResourceManager();
 
     /**
@@ -19,7 +19,7 @@ public class Controller
      */
     Controller(ApplicationService applicationService)
     {
-        this.applicationService = applicationService;
+        this._applicationService = applicationService;
     }
 
     /**
@@ -28,17 +28,17 @@ public class Controller
      */
     public ApplicationService init()
     {
-        return this.applicationService;
+        return this._applicationService;
     }
 
     public ApplicationService getApplicationService()
     {
-        return applicationService;
+        return _applicationService;
     }
 
     public void setApplicationService(ApplicationService applicationService)
     {
-        this.applicationService = applicationService;
+        _applicationService = applicationService;
     }
 
     public ResourceManager getResourceManager()

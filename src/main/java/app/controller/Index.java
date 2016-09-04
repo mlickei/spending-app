@@ -6,8 +6,6 @@ import app.service.ApplicationService;
 public class Index extends Controller
 {
 
-    ApplicationService applicationService;
-
     /**
      * Base constructor with the application service passed in
      * @param applicationService The application service used in the current controller
@@ -24,9 +22,11 @@ public class Index extends Controller
     @Override
     public ApplicationService init()
     {
+        ApplicationService applicationService = getApplicationService();
+
         ContentContainer contentContainer = new ContentContainer();
         contentContainer.addContent("This is the index");
-        this.applicationService.addToBodyContent(contentContainer.render());
+        applicationService.addToBodyContent(contentContainer.render());
         return applicationService;
     }
 }

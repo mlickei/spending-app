@@ -9,8 +9,6 @@ import app.service.ApplicationService;
 public class Authenticate extends Controller
 {
 
-    ApplicationService applicationService;
-
     /**
      * Base constructor with the application service passed in
      * @param applicationService The application service used in the current controller
@@ -27,6 +25,7 @@ public class Authenticate extends Controller
     public ApplicationService init(String username, String password)
     {
 
+        ApplicationService applicationService = getApplicationService();
         boolean isUser = Authenticator.authenticateUser(username, password);
 
         StringBuilder sb = new StringBuilder();
@@ -44,9 +43,9 @@ public class Authenticate extends Controller
         }
 
         sb.append("}");
-        this.applicationService.setBodyContent(sb.toString());
+        applicationService.setBodyContent(sb.toString());
 
-        return this.applicationService;
+        return applicationService;
 
     }
 
