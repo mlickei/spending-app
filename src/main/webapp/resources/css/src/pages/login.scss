@@ -1,0 +1,39 @@
+@import "../config/base-import.scss";
+
+#main-content {
+  text-align: center;
+}
+
+.login-container {
+  $field-padding: 10px;
+
+  margin-top: 50px;
+
+  .login {
+    display: inline-block;
+    margin: 0;
+
+    .password {
+      display: block;
+      padding-bottom: $field-padding;
+      input {
+        margin-left: $field-padding;
+      }
+    }
+
+    .username {
+      display: block;
+      padding-bottom: $field-padding;
+      input {
+        margin-left: $field-padding;
+      }
+    }
+
+    .submit-button {
+      display: block;
+      margin: 0 auto;
+    }
+
+  }
+
+}

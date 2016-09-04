@@ -1,0 +1,35 @@
+#main-content {
+  text-align: center;
+}
+
+.login-container {
+  margin-top: 50px;
+}
+
+.login-container .login {
+  display: inline-block;
+  margin: 0;
+}
+
+.login-container .login .password {
+  display: block;
+  padding-bottom: 10px;
+}
+
+.login-container .login .password input {
+  margin-left: 10px;
+}
+
+.login-container .login .username {
+  display: block;
+  padding-bottom: 10px;
+}
+
+.login-container .login .username input {
+  margin-left: 10px;
+}
+
+.login-container .login .submit-button {
+  display: block;
+  margin: 0 auto;
+}
