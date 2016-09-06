@@ -1,12 +1,20 @@
 package app.security;
 
 import app.database.UserDatabaseManager;
+import app.model.User;
 
 /**
  * This class is used to authenticate a user given a userName and password provided by the user for login purposes
  */
 public class Authenticator
 {
+    
+    public static boolean doesUserExist(String username)
+    {
+        User user = UserDatabaseManager.getUser(username);
+        return user != null;
+    }
+    
     /**
      * This method is used to check a username-password pair against database values.
      * @param userName The username provided by the user.

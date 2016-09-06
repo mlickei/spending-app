@@ -1,8 +1,6 @@
 package app.web;
 
-import app.controller.Authenticate;
-import app.controller.Login;
-import app.controller.Index;
+import app.controller.*;
 import app.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,20 +15,23 @@ import org.springframework.web.servlet.ModelAndView;
 @org.springframework.stereotype.Controller
 public class ApplicationController
 {
-
+    
     private ApplicationService applicationService;
-
+    
     /**
      * Base constructor to use the application controller.
+     *
      * @param applicationService The application service to use.
      */
     @Autowired
-    public ApplicationController(ApplicationService applicationService) {
+    public ApplicationController(ApplicationService applicationService)
+    {
         this.applicationService = applicationService;
     }
-
+    
     /**
      * The index of the website. Passes on to the Index controller.
+     *
      * @return The model and view with mappings of content to be rendered in jsp page.
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -46,9 +47,10 @@ public class ApplicationController
         //The jsp to be rendered
         return modelAndView;
     }
-
+    
     /**
      * The login page to be rendered. Passes on to the Login controller.
+     *
      * @return The model and view with mappings of content to be rendered in jsp page.
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -61,15 +63,16 @@ public class ApplicationController
         modelAndView = this.applicationService.render(modelAndView, login.getResourceManager());
         return modelAndView;
     }
-
+    
     /**
      * Will authenticate that a user has proper credentials. Can be used as a webservice.
+     *
      * @param username The username for user
      * @param password The users password
      * @return The model and view with mappings of content to be rendered in jsp page.
      */
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ModelAndView authenticate(@RequestParam(value="username", required = true, defaultValue = "") String username, @RequestParam(value = "password", required = true, defaultValue = "") String password)
+    public ModelAndView authenticate(@RequestParam(value = "username", required = true, defaultValue = "") String username, @RequestParam(value = "password", required = true, defaultValue = "") String password)
     {
         ModelAndView modelAndView = new ModelAndView("index");
         Authenticate authenticate = new Authenticate(applicationService);
@@ -77,9 +80,31 @@ public class ApplicationController
         modelAndView = this.applicationService.render(modelAndView, authenticate.getResourceManager());
         return modelAndView;
     }
+    
+    @RequestMapping(value = "/account/create", method = RequestMethod.GET)
+    public ModelAndView createAccount()
+    {
+        ModelAndView modelAndView = new ModelAndView("index");
+        CreateAccount createAccount = new CreateAccount(applicationService);
+        applicationService = createAccount.init();
+        modelAndView = applicationService.render(modelAndView, createAccount.getResourceManager());
+        return modelAndView;
+    }
+    
+    @RequestMapping(value = "/user/authenticate-new", method = RequestMethod.POST)
+    public ModelAndView authenticateNew(@RequestParam(value = "username", required = true, defaultValue = "") String username,
+                                        @RequestParam(value = "password", required = true, defaultValue = "") String password,
+                                        @RequestParam(value = "email", required = true, defaultValue = "") String email)
+    {
+        ModelAndView modelAndView = new ModelAndView("index");
+        AuthenticateNew authenticateNew = new AuthenticateNew(applicationService);
+        applicationService = authenticateNew.init(username, password, email);
+        modelAndView = applicationService.render(modelAndView, authenticateNew.getResourceManager());
+        return modelAndView;
+    }
 
     /*  TODO: method to start a user session given the username
         Start user session http://stackoverflow.com/questions/18791645/how-to-use-session-attributes-in-spring-mvc
      */
-
+    
 }

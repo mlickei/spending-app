@@ -1,6 +1,7 @@
 package app.database;
 
 import app.model.User;
+import com.sun.istack.internal.Nullable;
 
 import java.sql.*;
 
@@ -21,9 +22,9 @@ public class UserDatabaseManager {
      */
     public static void initializeStrings()
     {
-        url = "jdbc:mysql://localhost:3306/ktk_testbed";
-        db_user = "ktk";
-        db_password = "tTG8NDU0wlf43tb6xPjZIDtYd";
+        url = "jdbc:mysql://localhost:3306/spendingapp";
+        db_user = "admin";
+        db_password = "af9fsxFO";
     }
 
     /**
@@ -277,12 +278,13 @@ public class UserDatabaseManager {
         }
     }
 
+    @Nullable
     public static User getUser(String userName)
     {
         Connection conn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
-        User user;
+        User user = null;
         int userID = -1;
         String passwordHash = null;
         String salt = null;
@@ -298,12 +300,16 @@ public class UserDatabaseManager {
 
             rs = pst.executeQuery();
 
-            userID = rs.getInt("user_id");
-            passwordHash = rs.getString("password");
-            salt = rs.getString("salt");
-            email = rs.getString("email");
-            avatarPath = rs.getString("filepath");
-
+            if(!rs.wasNull())
+            {
+                userID = rs.getInt("user_id");
+                passwordHash = rs.getString("password");
+                salt = rs.getString("salt");
+                email = rs.getString("email");
+                avatarPath = rs.getString("filepath");
+    
+                user = new User(userID, userName, passwordHash, salt, email, avatarPath);
+            }
         } catch (SQLException ex)
         {
             ex.printStackTrace();
@@ -328,8 +334,6 @@ public class UserDatabaseManager {
                 ex.printStackTrace();
             }
         }
-
-        user = new User(userID, userName, passwordHash, salt, email, avatarPath);
 
         return user;
     }

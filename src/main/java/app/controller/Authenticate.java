@@ -24,7 +24,6 @@ public class Authenticate extends Controller
      */
     public ApplicationService init(String username, String password)
     {
-
         ApplicationService applicationService = getApplicationService();
         boolean isUser = Authenticator.authenticateUser(username, password);
 
@@ -46,7 +45,6 @@ public class Authenticate extends Controller
         applicationService.setBodyContent(sb.toString());
 
         return applicationService;
-
     }
 
 }

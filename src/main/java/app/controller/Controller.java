@@ -17,7 +17,7 @@ public class Controller
      * Base constructor with the application service passed in
      * @param applicationService The application service used in the current controller
      */
-    Controller(ApplicationService applicationService)
+    public Controller(ApplicationService applicationService)
     {
         this._applicationService = applicationService;
     }

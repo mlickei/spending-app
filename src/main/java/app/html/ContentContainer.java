@@ -15,6 +15,15 @@ public class ContentContainer implements Html
 
     List<ContentContainer> contentContainers = new ArrayList<ContentContainer>();
 
+    public ContentContainer()
+    {
+    }
+    
+    public ContentContainer(String className)
+    {
+        classes = className;
+    }
+    
     /**
      * Combines all of the content containers into a string of content.
      * Renders all children content inside of a wrapping div along with its own content.
@@ -24,8 +33,8 @@ public class ContentContainer implements Html
     public String render() {
 
         for (ContentContainer contentContainer : getContentContainers()) {
-            addContent("<div id=\"" + this.id + "\" class=\"" + this.classes + "\">");
-            renderChildren();
+            addContent("<div id=\"" + contentContainer.id + "\" class=\"" + contentContainer.classes + "\">");
+            contentContainer.renderChildren();
             addContent("</div>");
         }
 

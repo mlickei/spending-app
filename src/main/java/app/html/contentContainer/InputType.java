@@ -14,5 +14,6 @@ public class InputType
     public static String CHECKBOX = "checkbox";
     public static String RADIO = "radio";
     public static String SUBMIT = "submit";
+    public static String EMAIL = "email";
 
 }
