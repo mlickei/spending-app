@@ -4,3 +4,4 @@ build/
 *.iml
 src/main/webapp/resources/css/node_modules/
 out/
+build/
