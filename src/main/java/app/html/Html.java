@@ -18,7 +18,7 @@ public interface Html
     /**
      * Renders all children (content containers)
      */
-    void renderChildren();
+    String renderChildren();
 
     /**
      * Sets the content of html

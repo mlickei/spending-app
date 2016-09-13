@@ -1,6 +1,7 @@
 package app.html.contentContainer;
 
 import app.html.ContentContainer;
+import app.html.Html;
 
 /**
  * Standard form html element. Default method is set to get.
@@ -49,7 +50,7 @@ public class Form extends ContentContainer
     @Override
     public String render() {
         addContent("<form id=\""+getId()+"\" class=\""+getClasses()+"\" method=\""+getMethodType()+"\" action=\""+getAction()+"\">");
-        for (ContentContainer contentContainer : getContentContainers()) {
+        for (Html contentContainer : getContentContainers()) {
             addContent(contentContainer.render());
         }
         addContent("</form>");

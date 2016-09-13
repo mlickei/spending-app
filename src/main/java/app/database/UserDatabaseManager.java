@@ -1,11 +1,11 @@
 package app.database;
 
 import app.model.User;
-import com.sun.istack.internal.Nullable;
+import app.security.PasswordHasher;
+import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.sql.*;
-
-/* getUser (needs username) */
 
 /**
  * This class is used to manage connections to the user database
@@ -20,7 +20,7 @@ public class UserDatabaseManager {
      * This method is used to initialize the database
      * details, including url, user, and password
      */
-    public static void initializeStrings()
+    public UserDatabaseManager()
     {
         url = "jdbc:mysql://localhost:3306/spendingapp";
         db_user = "admin";
@@ -34,7 +34,7 @@ public class UserDatabaseManager {
      * @param email The users email address
      * @return The user_id of the newly inserted user, fetched from the database. Returns -1 if the insertion failed.
      */
-    public static int insertUser(String userName, String password, String salt, String email, String avatarPath)
+    public int insertUser(String userName, String password, String email, String avatarPath)
     {
         Connection conn = null;
         PreparedStatement pst = null;
@@ -43,10 +43,15 @@ public class UserDatabaseManager {
 
         try
         {
+            PasswordHasher hasher = new PasswordHasher();
+            hasher.hashPassword(password);
+            String salt = hasher.getSalt();
+            String hash = hasher.getHash();
+            
             conn = DriverManager.getConnection(url, db_user, db_password);
             pst = conn.prepareStatement("INSERT INTO user (user_name, password, salt, email, filepath) VALUES (?, ?, ?, ?, ?)");
             pst.setString(1, userName);
-            pst.setString(2, password);
+            pst.setString(2, hash);
             pst.setString(3, salt);
             pst.setString(4, email);
             pst.setString(5, avatarPath);
@@ -59,11 +64,10 @@ public class UserDatabaseManager {
             rs = pst.executeQuery();
 
             newID = rs.getInt("user_id");
-
         } catch (SQLException ex)
         {
             ex.printStackTrace();
-        } finally
+        }finally
         {
             try
             {
@@ -94,7 +98,7 @@ public class UserDatabaseManager {
      * @param userName The username of the user
      * @return The user_id of the corresponding userName. Returns -1 if the user does not exist.
      */
-    public static int getUserID(String userName)
+    public int getUserID(String userName)
     {
         Connection conn = null;
         PreparedStatement pst = null;
@@ -145,7 +149,7 @@ public class UserDatabaseManager {
      * including all related data
      * @param userID The user_id to delete
      */
-    public static void deleteUser(int userID)
+    public void deleteUser(int userID)
     {
         Connection conn = null;
         PreparedStatement pst = null;
@@ -200,7 +204,7 @@ public class UserDatabaseManager {
      * @param newHash The new hash for the user
      * @param newSalt The new salt for the user
      */
-    public static void updatePassword(int userID, String newHash, String newSalt)
+    public void updatePassword(int userID, String newHash, String newSalt)
     {
         Connection conn = null;
         PreparedStatement pst = null;
@@ -242,7 +246,7 @@ public class UserDatabaseManager {
      * @param userID The user_id to update
      * @param newPath The new filepath to the avatar
      */
-    public static void updateAvatar(int userID, String newPath)
+    public void updateAvatar(int userID, String newPath)
     {
         Connection conn = null;
         PreparedStatement pst = null;
@@ -278,8 +282,7 @@ public class UserDatabaseManager {
         }
     }
 
-    @Nullable
-    public static User getUser(String userName)
+    public User getUser(String userName)
     {
         Connection conn = null;
         PreparedStatement pst = null;
@@ -300,7 +303,7 @@ public class UserDatabaseManager {
 
             rs = pst.executeQuery();
 
-            if(!rs.wasNull())
+            if(rs.next())
             {
                 userID = rs.getInt("user_id");
                 passwordHash = rs.getString("password");
@@ -338,7 +341,7 @@ public class UserDatabaseManager {
         return user;
     }
 
-    public static String[] getHashSaltPair(String userName)
+    public String[] getHashSaltPair(String userName)
     {
         Connection conn = null;
         PreparedStatement pst = null;

@@ -11,7 +11,8 @@ public class Authenticator
     
     public static boolean doesUserExist(String username)
     {
-        User user = UserDatabaseManager.getUser(username);
+        UserDatabaseManager userManager = new UserDatabaseManager();
+        User user = userManager.getUser(username);
         return user != null;
     }
     
@@ -23,7 +24,8 @@ public class Authenticator
      */
     public static boolean authenticateUser(String userName, String inPassword)
     {
-        String hashSaltPair[] = UserDatabaseManager.getHashSaltPair(userName);
+        UserDatabaseManager userManager = new UserDatabaseManager();
+        String hashSaltPair[] = userManager.getHashSaltPair(userName);
         String userHash = hashSaltPair[0];
         String userSalt = hashSaltPair[1];
 

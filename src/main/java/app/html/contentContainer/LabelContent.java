@@ -48,7 +48,7 @@ public class LabelContent extends ContentContainer {
 
         addContent("<label id=\"" + getId() + "\" class=\"" + getClasses() + "\" for=\"" + getFor() + "\">");
         addContent(getLabelText());
-        renderChildren();
+        addContent(renderChildren());
         addContent("</label>");
 
         return getContent();

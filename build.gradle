@@ -24,8 +24,11 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
+    compile 'mysql:mysql-connector-java:5.1.+'
+
     compile("org.springframework.boot:spring-boot-starter-web")
     testCompile("junit:junit")
+    testCompile 'org.testng:testng:6.8'
 
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
 
@@ -35,6 +38,12 @@ dependencies {
 
     //include in compile only, exclude in the war
     providedCompile 'javax.servlet:servlet-api:2.5'
+}
+
+test {
+    useTestNG() {
+        includeGroups 'unit'
+    }
 }
 
 task wrapper(type: Wrapper) {
@@ -48,5 +57,5 @@ gretty {
     port = 8080
     contextPath = '/'
     servletContainer = 'jetty9' //tomcat7 or tomcat8
-    springBootMainClass = 'com.ktk.application.Application'
+    springBootMainClass = 'app.application.Application'
 }

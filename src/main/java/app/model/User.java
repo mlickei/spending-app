@@ -1,6 +1,8 @@
 package app.model;
 
 import app.database.UserDatabaseManager;
+import app.security.PasswordHasher;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * This class represents a User object, including
@@ -14,6 +16,8 @@ public class User {
     private String salt;
     private String email;
     private String avatarPath;
+    
+    private UserDatabaseManager _userManager = new UserDatabaseManager();
 
     /**
      * Constructor for User class
@@ -50,18 +54,6 @@ public class User {
         this.salt = salt;
         this.email = email;
         this.avatarPath = avatarPath;
-    }
-
-    /**
-     * This method is used to insert the User object into the database
-     * sets the returned userID
-     * @return
-     */
-    public int insertUser()
-    {
-        UserDatabaseManager.initializeStrings();
-        this.userID = UserDatabaseManager.insertUser(this.userName, this.passwordHash, this.salt, this.email, this.avatarPath);
-        return this.userID;
     }
 
     public int getUserID() {

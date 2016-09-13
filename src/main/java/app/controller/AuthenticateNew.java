@@ -1,5 +1,6 @@
 package app.controller;
 
+import app.database.UserDatabaseManager;
 import app.model.User;
 import app.security.Authenticator;
 import app.service.ApplicationService;
@@ -31,8 +32,8 @@ public class AuthenticateNew extends Controller
         }
         else
         {
-            User user = new User(username, password, "", email, "");
-            user.insertUser();
+            UserDatabaseManager userManager = new UserDatabaseManager();
+            userManager.insertUser(username, password, email, "");
             applicationService.addToBodyContent("Success!");
         }
     

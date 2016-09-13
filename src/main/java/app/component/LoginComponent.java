@@ -37,6 +37,6 @@ public class LoginComponent implements IComponent
     
         loginContainer.addContentContainer(form);
         
-        return loginContainer.render();
+        return form.render();
     }
 }

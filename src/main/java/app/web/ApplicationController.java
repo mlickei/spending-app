@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ApplicationController
 {
     
-    private ApplicationService applicationService;
+    private ApplicationService _applicationService;
     
     /**
      * Base constructor to use the application controller.
@@ -26,7 +26,7 @@ public class ApplicationController
     @Autowired
     public ApplicationController(ApplicationService applicationService)
     {
-        this.applicationService = applicationService;
+        _applicationService = applicationService;
     }
     
     /**
@@ -39,11 +39,11 @@ public class ApplicationController
     {
         ModelAndView modelAndView = new ModelAndView("index");
         //Create new instance of the page object we are rendering
-        Index index = new Index(applicationService);
+        Index index = new Index(_applicationService);
         //Running init will cause the page object to render all of it's content
-        this.applicationService = index.init();
+        _applicationService = index.init();
         //Use the render method to setup the model
-        modelAndView = applicationService.render(modelAndView, index.getResourceManager());
+        modelAndView = _applicationService.render(modelAndView, index.getResourceManager());
         //The jsp to be rendered
         return modelAndView;
     }
@@ -57,10 +57,10 @@ public class ApplicationController
     public ModelAndView login()
     {
         ModelAndView modelAndView = new ModelAndView("index");
-        Login login = new Login(applicationService);
-        this.applicationService = login.init();
-        applicationService.setDescription("Test description");
-        modelAndView = this.applicationService.render(modelAndView, login.getResourceManager());
+        Login login = new Login(_applicationService);
+        _applicationService = login.init();
+        _applicationService.setDescription("Test description");
+        modelAndView = _applicationService.render(modelAndView, login.getResourceManager());
         return modelAndView;
     }
     
@@ -75,9 +75,9 @@ public class ApplicationController
     public ModelAndView authenticate(@RequestParam(value = "username", required = true, defaultValue = "") String username, @RequestParam(value = "password", required = true, defaultValue = "") String password)
     {
         ModelAndView modelAndView = new ModelAndView("index");
-        Authenticate authenticate = new Authenticate(applicationService);
-        this.applicationService = authenticate.init(username, password);
-        modelAndView = this.applicationService.render(modelAndView, authenticate.getResourceManager());
+        Authenticate authenticate = new Authenticate(_applicationService);
+        _applicationService = authenticate.init(username, password);
+        modelAndView = this._applicationService.render(modelAndView, authenticate.getResourceManager());
         return modelAndView;
     }
     
@@ -85,9 +85,9 @@ public class ApplicationController
     public ModelAndView createAccount()
     {
         ModelAndView modelAndView = new ModelAndView("index");
-        CreateAccount createAccount = new CreateAccount(applicationService);
-        applicationService = createAccount.init();
-        modelAndView = applicationService.render(modelAndView, createAccount.getResourceManager());
+        CreateAccount createAccount = new CreateAccount(_applicationService);
+        _applicationService = createAccount.init();
+        modelAndView = _applicationService.render(modelAndView, createAccount.getResourceManager());
         return modelAndView;
     }
     
@@ -97,9 +97,9 @@ public class ApplicationController
                                         @RequestParam(value = "email", required = true, defaultValue = "") String email)
     {
         ModelAndView modelAndView = new ModelAndView("index");
-        AuthenticateNew authenticateNew = new AuthenticateNew(applicationService);
-        applicationService = authenticateNew.init(username, password, email);
-        modelAndView = applicationService.render(modelAndView, authenticateNew.getResourceManager());
+        AuthenticateNew authenticateNew = new AuthenticateNew(_applicationService);
+        _applicationService = authenticateNew.init(username, password, email);
+        modelAndView = _applicationService.render(modelAndView, authenticateNew.getResourceManager());
         return modelAndView;
     }
 

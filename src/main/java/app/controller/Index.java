@@ -1,5 +1,7 @@
 package app.controller;
 
+import app.component.ComponentRenderer;
+import app.component.LoginComponent;
 import app.html.ContentContainer;
 import app.service.ApplicationService;
 
@@ -24,9 +26,10 @@ public class Index extends Controller
     {
         ApplicationService applicationService = getApplicationService();
 
-        ContentContainer contentContainer = new ContentContainer();
-        contentContainer.addContent("This is the index");
-        applicationService.addToBodyContent(contentContainer.render());
+        ComponentRenderer renderer = new ComponentRenderer();
+        renderer.addComponent(new LoginComponent());
+        applicationService.setBodyContent(renderer.renderComponents());
+        
         return applicationService;
     }
 }
