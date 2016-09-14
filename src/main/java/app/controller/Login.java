@@ -8,6 +8,7 @@ import app.html.ContentContainer;
 import app.html.contentContainer.InputType;
 import app.html.contentContainer.LabelContent;
 import app.html.contentContainer.inputField.SubmitButton;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * The login page controller. Used to render the login page along with it's specific resource files.
@@ -15,9 +16,9 @@ import app.html.contentContainer.inputField.SubmitButton;
 public class Login extends Controller
 {
 
-    public Login(ApplicationService applicationService)
+    public Login(ApplicationService applicationService, ModelAndView modelAndView)
     {
-        super(applicationService);
+        super(applicationService, modelAndView);
     }
 
     /**

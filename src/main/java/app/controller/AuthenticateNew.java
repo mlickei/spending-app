@@ -4,6 +4,7 @@ import app.database.UserDatabaseManager;
 import app.model.User;
 import app.security.Authenticator;
 import app.service.ApplicationService;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author Matthew Lickei (mjlickei93@gmail.com)
@@ -16,9 +17,9 @@ public class AuthenticateNew extends Controller
      *
      * @param applicationService The application service used in the current controller
      */
-    public AuthenticateNew(ApplicationService applicationService)
+    public AuthenticateNew(ApplicationService applicationService, ModelAndView modelAndView)
     {
-        super(applicationService);
+        super(applicationService, modelAndView);
     }
     
     public ApplicationService init(String username, String password, String email)

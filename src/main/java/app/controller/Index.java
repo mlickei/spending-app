@@ -4,6 +4,7 @@ import app.component.ComponentRenderer;
 import app.component.LoginComponent;
 import app.html.ContentContainer;
 import app.service.ApplicationService;
+import org.springframework.web.servlet.ModelAndView;
 
 public class Index extends Controller
 {
@@ -12,9 +13,9 @@ public class Index extends Controller
      * Base constructor with the application service passed in
      * @param applicationService The application service used in the current controller
      */
-    public Index(ApplicationService applicationService)
+    public Index(ApplicationService applicationService, ModelAndView modelAndView)
     {
-        super(applicationService);
+        super(applicationService, modelAndView);
     }
 
     /**

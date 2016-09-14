@@ -6,13 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+
+import static app.session.SessionAttributes.USER;
 
 /**
  * This is where all of the page mapping magic happens.
  * Use methods and request mappings to setup page controllers and get page path information from wildcard pages and request parameters.
  */
 @org.springframework.stereotype.Controller
+@SessionAttributes({USER})
 public class ApplicationController
 {
     
@@ -39,7 +43,7 @@ public class ApplicationController
     {
         ModelAndView modelAndView = new ModelAndView("index");
         //Create new instance of the page object we are rendering
-        Index index = new Index(_applicationService);
+        Index index = new Index(_applicationService, modelAndView);
         //Running init will cause the page object to render all of it's content
         _applicationService = index.init();
         //Use the render method to setup the model
@@ -57,7 +61,7 @@ public class ApplicationController
     public ModelAndView login()
     {
         ModelAndView modelAndView = new ModelAndView("index");
-        Login login = new Login(_applicationService);
+        Login login = new Login(_applicationService, modelAndView);
         _applicationService = login.init();
         _applicationService.setDescription("Test description");
         modelAndView = _applicationService.render(modelAndView, login.getResourceManager());
@@ -75,7 +79,7 @@ public class ApplicationController
     public ModelAndView authenticate(@RequestParam(value = "username", required = true, defaultValue = "") String username, @RequestParam(value = "password", required = true, defaultValue = "") String password)
     {
         ModelAndView modelAndView = new ModelAndView("index");
-        Authenticate authenticate = new Authenticate(_applicationService);
+        Authenticate authenticate = new Authenticate(_applicationService, modelAndView);
         _applicationService = authenticate.init(username, password);
         modelAndView = this._applicationService.render(modelAndView, authenticate.getResourceManager());
         return modelAndView;
@@ -85,7 +89,7 @@ public class ApplicationController
     public ModelAndView createAccount()
     {
         ModelAndView modelAndView = new ModelAndView("index");
-        CreateAccount createAccount = new CreateAccount(_applicationService);
+        CreateAccount createAccount = new CreateAccount(_applicationService, modelAndView);
         _applicationService = createAccount.init();
         modelAndView = _applicationService.render(modelAndView, createAccount.getResourceManager());
         return modelAndView;
@@ -97,7 +101,7 @@ public class ApplicationController
                                         @RequestParam(value = "email", required = true, defaultValue = "") String email)
     {
         ModelAndView modelAndView = new ModelAndView("index");
-        AuthenticateNew authenticateNew = new AuthenticateNew(_applicationService);
+        AuthenticateNew authenticateNew = new AuthenticateNew(_applicationService, modelAndView);
         _applicationService = authenticateNew.init(username, password, email);
         modelAndView = _applicationService.render(modelAndView, authenticateNew.getResourceManager());
         return modelAndView;

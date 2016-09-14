@@ -2,6 +2,7 @@ package app.controller;
 
 import app.service.ApplicationService;
 import app.resource.ResourceManager;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Base for all controllers.
@@ -11,15 +12,17 @@ public class Controller
 {
 
     private ApplicationService _applicationService;
+    private ModelAndView _modelAndView;
     private ResourceManager resourceManager = new ResourceManager();
 
     /**
      * Base constructor with the application service passed in
      * @param applicationService The application service used in the current controller
      */
-    public Controller(ApplicationService applicationService)
+    public Controller(ApplicationService applicationService, ModelAndView modelAndView)
     {
-        this._applicationService = applicationService;
+        _applicationService = applicationService;
+        _modelAndView = modelAndView;
     }
 
     /**
@@ -49,5 +52,15 @@ public class Controller
     public void setResourceManager(ResourceManager resourceManager)
     {
         this.resourceManager = resourceManager;
+    }
+    
+    public ModelAndView getModelAndView()
+    {
+        return _modelAndView;
+    }
+    
+    public void setModelAndView(ModelAndView modelAndView)
+    {
+        _modelAndView = modelAndView;
     }
 }

@@ -1,21 +1,25 @@
 package app.controller;
 
+import app.database.UserDatabaseManager;
+import app.model.User;
 import app.security.Authenticator;
 import app.service.ApplicationService;
+import app.session.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Authentication controller used for logging in users.
  */
 public class Authenticate extends Controller
 {
-
+    
     /**
      * Base constructor with the application service passed in
      * @param applicationService The application service used in the current controller
      */
-    public Authenticate(ApplicationService applicationService)
+    public Authenticate(ApplicationService applicationService, ModelAndView modelAndView)
     {
-        super(applicationService);
+        super(applicationService, modelAndView);
     }
 
     /**
@@ -35,6 +39,9 @@ public class Authenticate extends Controller
         //We know the user is authenticated so pass the username on so the js can log them in
         if(isUser)
         {
+            UserDatabaseManager userManager = new UserDatabaseManager();
+            User user = userManager.getUser(username);
+            getModelAndView().addObject(SessionAttributes.USER, user);
             sb.append(", user: {");
             sb.append("username: \"");
             sb.append(username);
@@ -43,7 +50,7 @@ public class Authenticate extends Controller
 
         sb.append("}");
         applicationService.setBodyContent(sb.toString());
-
+        
         return applicationService;
     }
 
