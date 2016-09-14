@@ -356,10 +356,11 @@ public class UserDatabaseManager {
             pst.setString(1, userName);
 
             rs = pst.executeQuery();
+            
+            rs.next();
 
             hashSaltPair[0] = rs.getString("password");
             hashSaltPair[1] = rs.getString("salt");
-
         } catch (SQLException ex)
         {
             ex.printStackTrace();
