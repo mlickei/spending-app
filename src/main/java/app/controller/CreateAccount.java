@@ -5,6 +5,8 @@ import app.component.CreateAccountComponent;
 import app.service.ApplicationService;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @author Matthew Lickei (mjlickei93@gmail.com)
  */
@@ -16,9 +18,9 @@ public class CreateAccount extends Controller
      *
      * @param applicationService The application service used in the current controller
      */
-    public CreateAccount(ApplicationService applicationService, ModelAndView modelAndView)
+    public CreateAccount(ApplicationService applicationService, ModelAndView modelAndView, HttpSession session)
     {
-        super(applicationService, modelAndView);
+        super(applicationService, modelAndView, session);
     }
     
     @Override

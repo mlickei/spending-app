@@ -7,6 +7,8 @@ import app.service.ApplicationService;
 import app.session.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * Authentication controller used for logging in users.
  */
@@ -16,14 +18,19 @@ public class Authenticate extends Controller
     /**
      * Base constructor with the application service passed in
      * @param applicationService The application service used in the current controller
+     * @param modelAndView The model and view being used.
+     * @param session The session
      */
-    public Authenticate(ApplicationService applicationService, ModelAndView modelAndView)
+    public Authenticate(ApplicationService applicationService, ModelAndView modelAndView, HttpSession session)
     {
-        super(applicationService, modelAndView);
+        super(applicationService, modelAndView, session);
     }
 
     /**
      * This one will authenticate a user's username with the provided password
+     *
+     * @param username The user name given
+     * @param password The password
      * @return A valid response if user passes
      */
     public ApplicationService init(String username, String password)
@@ -41,7 +48,7 @@ public class Authenticate extends Controller
         {
             UserDatabaseManager userManager = new UserDatabaseManager();
             User user = userManager.getUser(username);
-            getModelAndView().addObject(SessionAttributes.USER, user);
+            getSession().setAttribute(SessionAttributes.USER, user);
             sb.append(", user: {");
             sb.append("username: \"");
             sb.append(username);

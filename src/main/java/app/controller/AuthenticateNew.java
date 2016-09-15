@@ -6,6 +6,8 @@ import app.security.Authenticator;
 import app.service.ApplicationService;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @author Matthew Lickei (mjlickei93@gmail.com)
  */
@@ -17,9 +19,9 @@ public class AuthenticateNew extends Controller
      *
      * @param applicationService The application service used in the current controller
      */
-    public AuthenticateNew(ApplicationService applicationService, ModelAndView modelAndView)
+    public AuthenticateNew(ApplicationService applicationService, ModelAndView modelAndView, HttpSession session)
     {
-        super(applicationService, modelAndView);
+        super(applicationService, modelAndView, session);
     }
     
     public ApplicationService init(String username, String password, String email)

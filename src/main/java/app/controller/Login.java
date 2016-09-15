@@ -1,14 +1,12 @@
 package app.controller;
 
-import app.html.contentContainer.Form;
-import app.html.contentContainer.InputFieldContent;
+import app.component.ComponentRenderer;
+import app.component.LoginComponent;
 import app.resource.css.CSSProvider;
 import app.service.ApplicationService;
-import app.html.ContentContainer;
-import app.html.contentContainer.InputType;
-import app.html.contentContainer.LabelContent;
-import app.html.contentContainer.inputField.SubmitButton;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * The login page controller. Used to render the login page along with it's specific resource files.
@@ -16,9 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class Login extends Controller
 {
 
-    public Login(ApplicationService applicationService, ModelAndView modelAndView)
+    public Login(ApplicationService applicationService, ModelAndView modelAndView, HttpSession session)
     {
-        super(applicationService, modelAndView);
+        super(applicationService, modelAndView, session);
     }
 
     /**
@@ -33,33 +31,11 @@ public class Login extends Controller
         //Generate header information and add resources
         getResourceManager().addResource(CSSProvider.BASE_STYLES);
         getResourceManager().addResource(CSSProvider.LOGIN_PAGE);
-
-        //Create body content
-        ContentContainer bodyContainer = new ContentContainer();
-        bodyContainer.setId("main-content");
-
-        ContentContainer loginContainer = new ContentContainer();
-        loginContainer.addClassName("login-container");
-
-        InputFieldContent usernameInput = new InputFieldContent(null, "username", InputType.TEXT, "username", null);
-        LabelContent usernameLabel = new LabelContent(null, null, null, "Username");
-        usernameLabel.addContentContainer(usernameInput);
-
-        InputFieldContent passwordInput = new InputFieldContent(null, "password", InputType.PASSWORD, "password", null);
-        LabelContent passwordLabel = new LabelContent(null, null, null, "Password");
-        passwordLabel.addContentContainer(passwordInput);
-
-        SubmitButton loginButton = new SubmitButton(null, "submit-button", "Login");
-
-        Form form = new Form(null, "login", Form.POST, "/authenticate");
-        form.addContentContainer(usernameLabel);
-        form.addContentContainer(passwordLabel);
-        form.addContentContainer(loginButton);
-
-        loginContainer.addContentContainer(form);
-        bodyContainer.addContentContainer(loginContainer);
-
-        applicationService.setBodyContent(bodyContainer.render());
+    
+        ComponentRenderer renderer = new ComponentRenderer();
+        renderer.addComponent(new LoginComponent());
+        
+        applicationService.setBodyContent(renderer.renderComponents());
         return applicationService;
     }
 
