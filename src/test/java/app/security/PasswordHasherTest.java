@@ -1,5 +1,6 @@
 package app.security;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -25,4 +26,16 @@ public class PasswordHasherTest
         Assert.assertEquals(_hashed, hasher.getHash());
     }
     
+    @Test
+    public void testHashPasswordGenSalt() throws Exception
+    {
+        PasswordHasher hasher = new PasswordHasher();
+        hasher.hashPassword(_pass);
+    
+        Assert.assertNotNull(hasher.getHash());
+        Assert.assertNotNull(hasher.getSalt());
+    }
+    
+    //TODO test hashpassword lower level method
+    //TODO test parseHex method
 }

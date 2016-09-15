@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Used to render components for the ui.
+ *
  * @author Matthew Lickei (mjlickei93@gmail.com)
  */
 public class ComponentRenderer

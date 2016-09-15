@@ -1,4 +1,4 @@
-package app.html.contentContainer;
+package app.html.contentContainer.inputField;
 
 /**
  * Static set of input types.

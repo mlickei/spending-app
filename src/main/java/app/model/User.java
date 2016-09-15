@@ -1,8 +1,6 @@
 package app.model;
 
 import app.database.UserDatabaseManager;
-import app.security.PasswordHasher;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * This class represents a User object, including
@@ -10,89 +8,189 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class User {
 
-    private int userID;
-    private String userName;
-    private String passwordHash;
-    private String salt;
-    private String email;
-    private String avatarPath;
-    
-    private UserDatabaseManager _userManager = new UserDatabaseManager();
+    /** User ID */
+    private int _userID;
+    /** User name */
+    private String _userName;
+    /** Password Hash */
+    private String _passwordHash;
+    /** Salt */
+    private String _salt;
+    /** Email */
+    private String _email;
+    /** Avatar path */
+    private String _avatarPath;
+    /** First Name */
+    private String _firstName;
+    /** Last Name */
+    private String _lastName;
 
     /**
      * Constructor for User class
-     * @param userName
-     * @param passwordHash
-     * @param salt
-     * @param email
-     * @param avatarPath
+     *
+     * @param userName The username
+     * @param passwordHash The password hash
+     * @param salt The salt
+     * @param email The email
+     * @param avatarPath The avatar path
      */
     public User(String userName, String passwordHash, String salt, String email, String avatarPath)
     {
-        this.userID = -1;
-        this.userName = userName;
-        this.passwordHash = passwordHash;
-        this.salt = salt;
-        this.email = email;
-        this.avatarPath = avatarPath;
+        _userID = -1;
+        _userName = userName;
+        _passwordHash = passwordHash;
+        _salt = salt;
+        _email = email;
+        _avatarPath = avatarPath;
     }
 
     /**
      * Alternate constructor for User class, including user_id parameter
-     * @param userID
-     * @param userName
-     * @param passwordHash
-     * @param salt
-     * @param email
-     * @param avatarPath
+     *
+     * @param userID The user id
+     * @param userName The username
+     * @param passwordHash The password hash
+     * @param salt The salt
+     * @param email The email
+     * @param avatarPath The avatar path
      */
     public User(int userID, String userName, String passwordHash, String salt, String email, String avatarPath)
     {
-        this.userID = userID;
-        this.userName = userName;
-        this.passwordHash = passwordHash;
-        this.salt = salt;
-        this.email = email;
-        this.avatarPath = avatarPath;
+        _userID = userID;
+        _userName = userName;
+        _passwordHash = passwordHash;
+        _salt = salt;
+        _email = email;
+        _avatarPath = avatarPath;
     }
-
+    
+    /**
+     * Get the user id.
+     *
+     * @return The user id.
+     */
     public int getUserID() {
-        return userID;
+        return _userID;
     }
-
+    
+    /**
+     * Set the user id.
+     *
+     * @param userID The user id.
+     */
     public void setUserID(int userID) {
-        this.userID = userID;
+        _userID = userID;
     }
-
+    
+    /**
+     * Get the user name.
+     *
+     * @return The user name.
+     */
     public String getUserName() {
-        return userName;
+        return _userName;
     }
-
+    
+    /**
+     * Set the user name.
+     *
+     * @param userName The user name.
+     */
     public void setUserName(String userName) {
-        this.userName = userName;
+        _userName = userName;
     }
-
+    
+    /**
+     * Get the password hash.
+     *
+     * @return The password hash.
+     */
     public String getPasswordHash() {
-        return passwordHash;
+        return _passwordHash;
     }
-
+    
+    /**
+     * Set the password hash.
+     *
+     * @param passwordHash The password hash.
+     */
     public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+        _passwordHash = passwordHash;
     }
-
+    
+    /**
+     * Get the email.
+     *
+     * @return The email.
+     */
     public String getEmail() {
-        return email;
+        return _email;
     }
-
+    
+    /**
+     * Set the email.
+     *
+     * @param email The email.
+     */
     public void setEmail(String email) {
-        this.email = email;
+        _email = email;
     }
-
+    
+    /**
+     * Get the avatar path.
+     *
+     * @return The avatar path.
+     */
     public String getAvatarPath() {
-        return avatarPath;
+        return _avatarPath;
     }
-
+    
+    /**
+     * Set the avatar path.
+     *
+     * @param avatarPath The avatar path.
+     */
     public void setAvatarPath(String avatarPath) {
-        this.avatarPath = avatarPath;
+        _avatarPath = avatarPath;
+    }
+    
+    /**
+     * Get first name.
+     *
+     * @return The first name.
+     */
+    public String getFirstName()
+    {
+        return _firstName;
+    }
+    
+    /**
+     * Set the first name.
+     *
+     * @param firstName The first name.
+     */
+    public void setFirstName(String firstName)
+    {
+        _firstName = firstName;
+    }
+    
+    /**
+     * Get the last name.
+     *
+     * @return The last name.
+     */
+    public String getLastName()
+    {
+        return _lastName;
+    }
+    
+    /**
+     * Set the last name.
+     *
+     * @param lastName The last name.
+     */
+    public void setLastName(String lastName)
+    {
+        _lastName = lastName;
     }
 }

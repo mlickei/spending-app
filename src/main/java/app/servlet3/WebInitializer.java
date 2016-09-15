@@ -1,7 +1,7 @@
 package app.servlet3;
 
-import app.config.SpringRootConfg;
-import app.config.SpringWebConfig;
+import app.application.config.SpringRootConfg;
+import app.application.config.SpringWebConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**

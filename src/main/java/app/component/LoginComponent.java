@@ -2,8 +2,8 @@ package app.component;
 
 import app.html.ContentContainer;
 import app.html.contentContainer.Form;
-import app.html.contentContainer.InputFieldContent;
-import app.html.contentContainer.InputType;
+import app.html.contentContainer.inputField.InputFieldContent;
+import app.html.contentContainer.inputField.InputType;
 import app.html.contentContainer.LabelContent;
 import app.html.contentContainer.inputField.SubmitButton;
 

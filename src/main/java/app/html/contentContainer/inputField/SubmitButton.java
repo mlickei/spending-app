@@ -1,8 +1,5 @@
 package app.html.contentContainer.inputField;
 
-import app.html.contentContainer.InputFieldContent;
-import app.html.contentContainer.InputType;
-
 /**
  * Will setup a simple submit button for a form or something.
  */

@@ -1,6 +1,7 @@
-package app.html.contentContainer;
+package app.html.contentContainer.inputField;
 
 import app.html.ContentContainer;
+import app.html.contentContainer.inputField.InputType;
 
 /**
  * Used to make basic html input fields
@@ -17,7 +18,6 @@ public class InputFieldContent extends ContentContainer
      */
     public InputFieldContent()
     {
-
     }
 
     /**

@@ -1,7 +1,5 @@
 package app.html.contentContainer.inputField;
 
-import app.html.contentContainer.InputFieldContent;
-
 /**
  * A text area field which is it's own special html element.
  */

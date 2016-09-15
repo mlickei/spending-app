@@ -11,7 +11,12 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableRedisHttpSession
 public class Application
 {
-
+    
+    /**
+     * Main class for the application. Will start the spring application.
+     *
+     * @param args Main method args.
+     */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
